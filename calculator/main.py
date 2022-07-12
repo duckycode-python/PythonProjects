@@ -1,4 +1,3 @@
-from ast import Lambda
 from tkinter import *
 root = Tk()
 
