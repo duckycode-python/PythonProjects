@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import filedialog as fd
 root = Tk()
 
 e = Entry(root, width=50)
