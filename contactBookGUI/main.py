@@ -124,10 +124,10 @@ def exportContact():
     global pathtosave
     global v
     v = IntVar()
-    filetype = ""
     destroyall()
     Label(root, text="Click button below to choose folder").pack(anchor=CENTER)
     Button(root, text="click", command=lambda: selectFolderExport()).pack(anchor=CENTER)
+    back()
     Label(root, text=f"Path to selected folder:\n{pathtosave}").pack()
     Label(root, text="\n What file type?").pack()
     Radiobutton(root, text=".json", value=1, variable=v).pack()
@@ -143,7 +143,6 @@ def exportFileSave():
     global v
     global contacts
     global pathtosave
-    print(v)
     if v.get() == 2:
         f = open(f"{pathtosave}/contacts.txt", "w")
         for x in contacts:
@@ -168,6 +167,7 @@ def importContact():
             global contacts
             Label(root, text="Click button belove to select file.").pack()
             Button(root, text="click", command=lambda: pathtosaveImport()).pack(anchor=CENTER)
+            back()
             filetype = pathlib.Path(f"{filename}").suffix
             if filetype == ".txt":
                 contacts.clear()
