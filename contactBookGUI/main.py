@@ -91,7 +91,7 @@ def contactList():
             label = Label(root, text=contact, bg=bgcolor, fg=textcolor)
             label.pack(anchor=CENTER)
             random += 1
-            back()
+        back()
 
 def deleteContact():
     global wiadomosc
@@ -195,9 +195,7 @@ def importContact():
                 f.close
                 back()
             else:
-                print ("Error!")
-                back()
-            back()
+                Label(root, text="Error!").pack()
         else:
             mainScreen()
 def pathtosaveImport():
