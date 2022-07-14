@@ -67,6 +67,7 @@ def check():
     else:
         wiadomosc = ("Number must be nine numeric and only numbers!")         
         addContact()
+
 def contactList():
     global wiadomosc
     destroyall()
@@ -91,6 +92,7 @@ def contactList():
             label.pack(anchor=CENTER)
             random += 1
             back()
+
 def deleteContact():
     global wiadomosc
     destroyall()
@@ -102,7 +104,6 @@ def deleteContact():
     back()
     label = Label(root, text=wiadomosc)
     label.pack(anchor=CENTER)
-
 
 def deleteLoop():
     global wiadomosc
