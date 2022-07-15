@@ -160,47 +160,47 @@ def exportFileSave():
         messagebox.showinfo(title="Succesfully", message=f"Succesfully exported contact list to contacts.json.")
         back()
 def importContact():
-        response = messagebox.askyesno("Warning!", f"You will lose your curent contact list. Even if import will be unsuccesfully")
-        if response == 1:
-            destroyall()
-            global filename
-            global contacts
-            Label(root, text="Click button belove to select file.").pack()
-            Button(root, text="click", command=lambda: pathtosaveImport()).pack(anchor=CENTER)
+        destroyall()
+        global filename
+        global contacts
+        Label(root, text="Click button belove to select file.").pack()
+        Button(root, text="click", command=lambda: pathtosaveImport()).pack(anchor=CENTER)
+        back()
+        filetype = pathlib.Path(f"{filename}").suffix
+        if filetype == ".txt":
+            contacts.clear()
+            unorganised = []
+            f = open(f"{filename}", "r")
+            unorganised = f.readlines()
+            unorganised = [x[:-1] for x in unorganised]
+            for x in unorganised:
+                name = x.split()[0]
+                number = x.split()[1]
+                if isinstance(int(number), int):
+                    pass
+                else:
+                    print("Something went wrong! Did you edit file?")
+                    back()
+                contacts.append([name, number])
+                print("Succesfully imported contacts!")
+            f.close
             back()
-            filetype = pathlib.Path(f"{filename}").suffix
-            if filetype == ".txt":
-                contacts.clear()
-                unorganised = []
-                f = open(f"{filename}", "r")
-                unorganised = f.readlines()
-                unorganised = [x[:-1] for x in unorganised]
-                for x in unorganised:
-                    name = x.split()[0]
-                    number = x.split()[1]
-                    if isinstance(int(number), int):
-                        pass
-                    else:
-                        print("Something went wrong! Did you edit file?")
-                        back()
-                    contacts.append([name, number])
-                    print("Succesfully imported contacts!")
-                f.close
-                back()
-            elif filetype == ".json":
-                contacts.clear()
-                f = open(f"{filename}", "r")
-                contacts = json.load(f)
-                print(contacts)
-                f.close
-                back()
-            else:
-                Label(root, text="Error!").pack()
+        elif filetype == ".json":
+            contacts.clear()
+            f = open(f"{filename}", "r")
+            contacts = json.load(f)
+            print(contacts)
+            f.close
+            back()
         else:
-            mainScreen()
+            Label(root, text="Error! Wrong file type.").pack()
 def pathtosaveImport():
     global filename
-    filename = fd.askopenfilename()
+    response = messagebox.askyesno("Warning!", f"You will lose your curent contact list. Even if import will be unsuccesfully")
+    if response == 1:
+        filename = fd.askopenfilename()
+    else:
+        mainScreen()
     importContact()
 mainScreen()
 root.mainloop()
