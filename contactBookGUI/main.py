@@ -95,33 +95,43 @@ def contactList():
 
 def deleteContact():
     global wiadomosc
-    global contacts
     destroyall()
     global nametodeleteEntry
     nametodeleteEntry = Entry(root)
     nametodeleteEntry.insert(0, "Contact name you want to delete")
     nametodeleteEntry.pack()
     Button(root, text="Delete", command=lambda: deleteLoop()).pack(anchor=CENTER)
+    Label(root, text=wiadomosc).pack()
     back()
-    label = Label(root, text=wiadomosc)
-    label.pack(anchor=CENTER)
 
 def deleteLoop():
     global wiadomosc
+    global contacts
+    instance = False
     nametodelete = nametodeleteEntry.get()
+    contacts = [x for x in contacts if x]
     for x in contacts:
         if x[0] == nametodelete:
             response = messagebox.askyesno("Warning!", f"Are you sure u wanna delete contact named: {x[0]} with number {x[1]} ?")
             if response == 1:
                 x.clear()
                 wiadomosc = "Succesfully removed contact!"
-                contacts = [x for x in contacts if x]
                 deleteContact()
             else:
                 mainScreen()
         else:
-            wiadomosc = "Unable to find contact!"
-            deleteContact()
+            pass
+    for x in contacts:
+        if x[0] == nametodelete:
+            deleteLoop()
+        else:
+            instance = False
+    if instance == False:
+        wiadomosc = "Unable to find contact"
+        deleteContact()
+    else:
+        wiadomosc = "Error"
+        deleteContact()
 def exportContact():
     global pathtosave
     global v
