@@ -95,6 +95,7 @@ def contactList():
 
 def deleteContact():
     global wiadomosc
+    global contacts
     destroyall()
     global nametodeleteEntry
     nametodeleteEntry = Entry(root)
@@ -114,6 +115,7 @@ def deleteLoop():
             if response == 1:
                 x.clear()
                 wiadomosc = "Succesfully removed contact!"
+                contacts = [x for x in contacts if x]
                 deleteContact()
             else:
                 mainScreen()
