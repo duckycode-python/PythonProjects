@@ -4,6 +4,8 @@ from tkinter import messagebox
 from tkinter import filedialog
 import pathlib
 from tkinter import filedialog as fd
+
+from numpy import integer, isin
 root = Tk()
 root.title("Contact Book")
 root.geometry("300x405")
@@ -188,15 +190,14 @@ def importContact():
             for x in unorganised:
                 name = x.split()[0]
                 number = x.split()[1]
-                if isinstance(int(number), int):
-                    pass
+                if isinstance(number, integer):
+                    contacts.append([name, number])
+                    
                 else:
-                    print("Something went wrong! Did you edit file?")
-                    back()
-                contacts.append([name, number])
-                print("Succesfully imported contacts!")
+                    Label(root, text="Something went wrong! Did you edit file?").pack()
+                    importContact()
+            Label(root, text="Succesfully imported contacts!").pack()
             f.close
-            back()
         elif filetype == ".json":
             contacts.clear()
             f = open(f"{filename}", "r")
