@@ -31,46 +31,54 @@ def losowaniePolozeniaStatkow():
         print(statek)
 
 losowaniePolozeniaStatkow()
-zestrzelone = []
 def startGry():
     #os.system("cls")
     drukujPola()
     strzal = input("W jakie pole chcesz strzelic? ")
-    czyStrzelano(strzal)
     for x in pola:
         if x[0] == strzal:
             czyPole = True
             if x[1] == True:
+                print("Trafiony zatopiony!")
                 x.remove(True)
                 x.insert(1, False)
                 x.remove(strzal)
                 x.insert(0, "XX")
-                zestrzelone.append(strzal)
-                print(x)
+                x.insert(2, True)
+                input()
                 startGry()
             else:
+                x.insert(0, "##")
+                print("Pudło!")
+                input()
                 czyPole = True
-                zestrzelone.append(strzal)
+                x.insert(2, True)
                 startGry()
         else:
             czyPole = False
     if czyPole:
             startGry()
     else:
-        print("Wybierz poprawne pole!")
-        input()
-        startGry()
+        if czyStrzelano(strzal):
+            print("Te miejsce zostało już odstrzelone!")
+            input()
+            startGry()
+        else:
+            print("Wybierz poprawne pole!")
+            input()
+            startGry()
 def czyStrzelano(pole):
+    polozenie = 0
     for x in pola:
         czyPole = False
-        if x == pola[0]:
+        if x[0] == pola[polozenie][0]:
             czyPole = True
+        polozenie += 1
     if czyPole:
-        for x in zestrzelone:
-            if pole == x[0]:
-                return True
-        return False
+        if pole[2]:
+            return True
+        else:
+            return False
     else:
         raise Error
-
 startGry()

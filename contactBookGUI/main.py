@@ -192,7 +192,6 @@ def importContact():
                 number = x.split()[1]
                 if isinstance(number, integer):
                     contacts.append([name, number])
-                    
                 else:
                     Label(root, text="Something went wrong! Did you edit file?").pack()
                     importContact()
@@ -209,7 +208,7 @@ def importContact():
             Label(root, text="Error! Wrong file type.").pack()
 def pathtosaveImport():
     global filename
-    response = messagebox.askyesno("Warning!", f"You will lose your curent contact list. Even if import will be unsuccesfully")
+    response = messagebox.askyesno("Warning!", "You will lose your curent contact list. Even if import will be unsuccesfully")
     if response == 1:
         filename = fd.askopenfilename()
     else:
